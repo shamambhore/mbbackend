@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | MicroBiomeResearch</title>
+</head>
+<body>
+   
+   {% for hd in home_data  %}
+   <h2>{{hd.package_title}}</h2>
+   <h2>{{hd.package_category}}</h2>
+   
+   {% for hi in home_images  %}
+   
+   <img src="{{hi.homeimages.url}}" alt="home-images">
+   {% endfor %}
+    
+   <h3>{{hd.package_newprice}}</h3>
+   <h3 style="text-decoration: line-through ;">{{hd.package_oldprice}}</h3>
+   {% endfor %}
+    
+</body>
+</html>
