@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Package, Homeimages, Packageimages
+from .models import Productpackage, Curiosityimages, Essentialimages, Premiumimages
 
-admin.site.register(Package)
-admin.site.register(Homeimages)
-admin.site.register(Packageimages)
+admin.site.register(Productpackage)
+admin.site.register(Curiosityimages)
+admin.site.register(Essentialimages)
+admin.site.register(Premiumimages)
