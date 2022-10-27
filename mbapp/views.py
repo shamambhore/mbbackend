@@ -1,24 +1,26 @@
-from ast import Add
-from multiprocessing import context
-from . models import Curiosityimages, Productpackage, Essentialimages, Premiumimages
+from itertools import product
+from . models import Productpackage, Packageimages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 
-
+@login_required(login_url="login")
 def home(request):
     home_data = Productpackage.objects.all()
     context = {"home_data": home_data}
     return render(request, 'mbapp/homepage.html', context)
 
+@login_required(login_url="login")
 def package(request, packagename):
-    package_data= Productpackage.objects.filter(package_category= packagename)
+    package_data= Productpackage.objects.get(package_category = packagename)
     p_data = Productpackage.objects.all()
-    c_images = Curiosityimages.objects.all()
-    e_images = Essentialimages.objects.all()
-    p_images = Premiumimages.objects.all()
-    context = {"p_data":p_data,"package_data":package_data, "c_images":c_images, "e_images":e_images, "p_images":p_images}
+    p_images = Packageimages.objects.filter(product=package_data)
+    context = {"p_data":p_data,
+               "package_data":package_data,
+               "p_images":p_images,
+        }
     return render(request, 'mbapp/productpage.html', context)
 
 
@@ -53,3 +55,7 @@ def logout(request):
         auth.logout(request)
     return redirect('home')
 
+
+def checkcarousel(request):
+    car_images = Packageimages.objects.filter(product_id=1)
+    return render(request, 'mbapp/check_carousel.html',{'car_images':car_images})
